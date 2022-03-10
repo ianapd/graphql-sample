@@ -24,6 +24,7 @@ export default function Product() {
         setUnitsInStock(product.createProduct.record.unitsInStock)
         setUnitsOnOrder(product.createProduct.record.unitsOnOrder)
       } else if (operation === "Update") {
+        setId(product.updateProduct.recordId)
         setName(product.updateProduct.record.name)
         setUnitPrice(product.updateProduct.record.unitPrice)
         setUnitsInStock(product.updateProduct.record.unitsInStock)
