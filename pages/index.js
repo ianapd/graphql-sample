@@ -2,12 +2,17 @@ import { useQuery } from "@apollo/client"
 import { Box, Container, Heading, Button, Spinner, VStack, Text, Center } from "@chakra-ui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useEffect } from "react/cjs/react.development"
 import { GET_PRODUCTS } from "../query/schema"
 
 export default function Home() {
-  const { loading, error, data } = useQuery(GET_PRODUCTS)
+  const { loading, error, data, refetch } = useQuery(GET_PRODUCTS)
 
   const router = useRouter()
+
+  useEffect(() => {
+    refetch()
+  }, [])
 
   if (loading) return (
     <Center h="750px">
