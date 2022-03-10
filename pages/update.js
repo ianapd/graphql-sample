@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client"
-import { Box, Spinner } from "@chakra-ui/react"
+import { Box, Center, Spinner } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import { UPDATE_PRODUCT } from "../query/schema"
@@ -28,7 +28,9 @@ export default function Update() {
   }, [router.isReady])
 
   if (loading) return (
-    <Spinner />
+    <Center h="750px">
+      <Spinner size="xl" color="blue.500" />
+    </Center> 
   )
   if (error) console.log(error)
   if (data) {

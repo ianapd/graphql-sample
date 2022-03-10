@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client"
-import { Box, Spinner } from "@chakra-ui/react"
+import { Box, Center, Spinner } from "@chakra-ui/react"
 import { useEffect } from "react"
 import { REMOVE_PRODUCT } from "../query/schema"
 import { useRouter } from 'next/router'
@@ -17,7 +17,9 @@ export default function Remove() {
   }, [router.isReady])
 
   if (loading) return (
-    <Spinner />
+    <Center h="750px">
+      <Spinner size="xl" color="blue.500" />
+    </Center> 
   )
   if (error) console.log(error)
   if (data) {

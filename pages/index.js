@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client"
-import { Box, Container, Heading, Button, Spinner, VStack, Text } from "@chakra-ui/react"
+import { Box, Container, Heading, Button, Spinner, VStack, Text, Center } from "@chakra-ui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { GET_PRODUCTS } from "../query/schema"
@@ -10,7 +10,9 @@ export default function Home() {
   const router = useRouter()
 
   if (loading) return (
-    <Spinner />
+    <Center h="750px">
+      <Spinner size="xl" color="blue.500" />
+    </Center> 
   )
   if (error) console.log(error)
 

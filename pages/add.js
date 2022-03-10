@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client"
-import { Box, Container, Heading, Text, Input, Button, Spinner } from "@chakra-ui/react"
+import { Box, Container, Heading, Text, Input, Button, Spinner, Center } from "@chakra-ui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
@@ -17,7 +17,9 @@ export default function Add() {
   const router = useRouter()
 
   if (loading) return (
-    <Spinner />
+    <Center h="750px">
+      <Spinner size="xl" color="blue.500" />
+    </Center> 
   )
   if (error) console.log(error)
   if (data) {
