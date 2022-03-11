@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client"
 import { Box, Center, Spinner } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { UPDATE_PRODUCT } from "../query/schema"
 
 export default function Update() {

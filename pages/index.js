@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client"
-import { Box, Container, Heading, Button, Spinner, VStack, Text, Center, Grid } from "@chakra-ui/react"
+import { Box, Container, Heading, Button, Spinner, Text, Center, Grid } from "@chakra-ui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useEffect } from "react/cjs/react.development"
+import { useEffect } from "react"
 import { GET_PRODUCTS } from "../query/schema"
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
     <Box mt={16}>
       <Container maxW="container.lg">
         <Heading mb={4}>GraphQL Sample</Heading>
-        <Text mb={8}>A sample project showing the use of useQuery and useMutation of apollo client.</Text>
+        <Text mb={8}>A sample project showing the use of useQuery and useMutation of apollo client to get and modify data from the server.</Text>
         <Heading mb={4}>Products List</Heading>
         <Link href="/add">
           <Button mb={8}>Add Product</Button>
