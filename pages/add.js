@@ -4,7 +4,6 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { CREATE_PRODUCT } from "../query/schema"
-import Product from "./product"
 
 export default function Add() {
   const [name, setName] = useState("")
@@ -27,8 +26,7 @@ export default function Add() {
     router.push({
       pathname: "/product",
       query: {
-        object: JSON.stringify(data),
-        operation: "Add"
+        id: data.createProduct.recordId
       }
     })
   } 

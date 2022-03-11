@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client"
-import { Box, Container, Heading, Button, Spinner, VStack, Text, Center } from "@chakra-ui/react"
+import { Box, Container, Heading, Button, Spinner, VStack, Text, Center, Grid } from "@chakra-ui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect } from "react/cjs/react.development"
@@ -20,15 +20,18 @@ export default function Home() {
     </Center> 
   )
   if (error) console.log(error)
+  if (data) console.log(data)
 
   return (
     <Box mt={16}>
       <Container maxW="container.lg">
+        <Heading mb={4}>GraphQL Sample</Heading>
+        <Text mb={8}>A sample project showing the use of useQuery and useMutation of apollo client.</Text>
         <Heading mb={4}>Products List</Heading>
         <Link href="/add">
           <Button mb={8}>Add Product</Button>
         </Link>
-        <VStack spacing="48px" align="start" mb={16}>
+        <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }} gap={12} mb={16}>
           {
             data.viewer.productList.map((i, iKey) => (
               <Box key={iKey}>
@@ -40,15 +43,14 @@ export default function Home() {
                   router.push({
                     pathname: "/product",
                     query: {
-                      object: JSON.stringify(i),
-                      operation: "View"
+                      id: i._id
                     }
                   })
                 }}>View Data</Button>
               </Box>
             ))
           }
-        </VStack>
+        </Grid>
       </Container>
     </Box>
   )

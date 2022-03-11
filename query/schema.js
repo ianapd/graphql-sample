@@ -1,5 +1,18 @@
 import { gql } from "@apollo/client";
 
+export const GET_PRODUCT = gql`
+  query GetProduct($filter: FilterFindOneProductInput) {
+    viewer {
+      product(filter: $filter) {
+        name
+        unitPrice
+        unitsInStock
+        unitsOnOrder
+      }
+    }
+  }
+`
+
 export const GET_PRODUCTS = gql`
   query GetProducts {
     viewer {

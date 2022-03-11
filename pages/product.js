@@ -1,7 +1,9 @@
-import { Box, Container, Heading, Text, Input, Button, HStack, Spinner } from "@chakra-ui/react"
+import { useQuery } from "@apollo/client"
+import { Box, Container, Heading, Text, Input, Button, HStack, Spinner, Center } from "@chakra-ui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import { GET_PRODUCT } from "../query/schema"
 
 export default function Product() {
   const [id, setId] = useState("")
@@ -10,34 +12,39 @@ export default function Product() {
   const [unitsInStock, setUnitsInStock] = useState(0)
   const [unitsOnOrder, setUnitsOnOrder] = useState(0)
 
+  const { loading, error, data, refetch } = useQuery(GET_PRODUCT, {
+    variables: {
+      filter: {
+        _id: id
+      }
+    }
+  })
+
   const router = useRouter()
 
   useEffect(() => {
     if (router.isReady) {
-      const { object, operation } = router.query
-      const product = JSON.parse(object)
-  
-      if (operation === "Add") {
-        setId(product.createProduct.recordId)
-        setName(product.createProduct.record.name)
-        setUnitPrice(product.createProduct.record.unitPrice)
-        setUnitsInStock(product.createProduct.record.unitsInStock)
-        setUnitsOnOrder(product.createProduct.record.unitsOnOrder)
-      } else if (operation === "Update") {
-        setId(product.updateProduct.recordId)
-        setName(product.updateProduct.record.name)
-        setUnitPrice(product.updateProduct.record.unitPrice)
-        setUnitsInStock(product.updateProduct.record.unitsInStock)
-        setUnitsOnOrder(product.updateProduct.record.unitsOnOrder)
-      } else if (operation === "View") {
-        setId(product._id)
-        setName(product.name)
-        setUnitPrice(product.unitPrice)
-        setUnitsInStock(product.unitsInStock)
-        setUnitsOnOrder(product.unitsOnOrder)
+      const { id } = router.query
+
+      setId(id)
+
+      if (data) {
+        setName(data.viewer.product.name)  
+        setUnitPrice(data.viewer.product.unitPrice)
+        setUnitsInStock(data.viewer.product.unitsInStock)
+        setUnitsOnOrder(data.viewer.product.unitsOnOrder)
       }
+
+      refetch()
     }
-  }, [router.isReady])
+  }, [router.isReady, data])
+
+  if (loading) return (
+    <Center h="750px">
+      <Spinner size="xl" color="blue.500" />
+    </Center> 
+  )
+  if (error) console.log(error)
 
   const safeParseFloat = (str) => {
     const value = Number.parseFloat(str)
@@ -84,17 +91,14 @@ export default function Product() {
               pathname: "/update",
               query: {
                 object: JSON.stringify({
-                  createProduct: {
-                    recordId: id,
-                    record: {
-                      name: name,
-                      unitPrice: unitPrice,
-                      unitsInStock: unitsInStock,
-                      unitsOnOrder: unitsOnOrder
-                    }
+                  recordId: id,
+                  record: {
+                    name: name,
+                    unitPrice: unitPrice,
+                    unitsInStock: unitsInStock,
+                    unitsOnOrder: unitsOnOrder
                   }
-                }),
-                label: "Created"
+                })
               }
             })
           }}>Update</Button>

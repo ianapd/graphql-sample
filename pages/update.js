@@ -11,19 +11,16 @@ export default function Update() {
 
   useEffect(() => {
     if (router.isReady) {
-      const { object, label } = router.query
+      const { object } = router.query
       const product = JSON.parse(object)
 
-      if (label === "Created") {
-        console.log(product)
-        handleUpdate(
-          product.createProduct.recordId, 
-          product.createProduct.record.name, 
-          product.createProduct.record.unitPrice,
-          product.createProduct.record.unitsInStock,
-          product.createProduct.record.unitsOnOrder
-        )
-      }
+      handleUpdate(
+        product.recordId, 
+        product.record.name, 
+        product.record.unitPrice,
+        product.record.unitsInStock,
+        product.record.unitsOnOrder
+      )
     }
   }, [router.isReady])
 
@@ -38,15 +35,12 @@ export default function Update() {
     router.push({
       pathname: "/product",
       query: {
-        object: JSON.stringify(data),
-        operation: "Update"
+        id: data.updateProduct.recordId
       }
     })
   }
 
   const handleUpdate = (id, name, unitPrice, unitsInStock, unitsOnOrder) => {
-    console.log(id)
-    console.log(name)
     updateProduct({
       variables: {
         id: id,
